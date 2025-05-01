@@ -8,8 +8,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
 @TeleOp
-public class Swerve_Code extends LinearOpMode{
+public class SwerveCode extends LinearOpMode{
+   
+//labeling the actuators and sensors
     public encoder Encoder;
     public DcMotor FR-SwerveMotor;
     public DcMotor FL-SwerveMotor;
@@ -19,19 +22,25 @@ public class Swerve_Code extends LinearOpMode{
     public servo FL-SwerveServo;
     public servo BR-SwerveServo.setPower();
     public servo BL-SwerveServo.setPower();
-    waitForStart();
+  
+waitForStart();
     FR-SwerveMotor.setPower(gamepad1.left_stick_y);
             FL-SwerveMotor.setPower(gamepad1.left_stick_y);
         BR-SwerveMotor(gamepad1.left_stick_y);
                BL-SwerveMotor(gamepad1.left_stick_y);
-               while(opModeIsActive()){
-                   double encoder_angle = Encoder.getPulse / 2.844444444444;
+               
+while(opModeIsActive()){
+        double encoder_angle = Encoder.getPulse / 2.844444444444;
         double jy = gamepad1.left_stick_y;
         double jx = gamepad1.left_stick_x;
         //This is what I used when using tangent
-//I did use an if statement to stop the divid by zero error
-        int joystick_angle = radiansToDegrees(atan(jy / jx));
+//I did use an if statement to stop the divid by zero error.
+       
+   int joystick_angle = radiansToDegrees(atan(jy / jx));
         telemetry.addData(joystick_angle);
+       
+
+    //Movement using encoder detection
         if (encoder_angle < joystick_angle) {
             FR-SwerveServo.setPower(0.7);
             FL-SwerveServo.setPower(0.7);
