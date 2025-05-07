@@ -1,8 +1,5 @@
 /* test code
 
-
-
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -34,35 +31,38 @@ while(opModeIsActive()){
         double jy = gamepad1.left_stick_y;
         double jx = gamepad1.left_stick_x;
         //This is what I used when using tangent
-//I did use an if statement to stop the divid by zero error.
+//I did use an if statement to stop the divided by zero error.
        
    int joystick_angle = radiansToDegrees(atan(jy / jx));
         telemetry.addData(joystick_angle);
-       
+
+// Servo accuracy helps the servo slow down when approaching its desired position.
+       double servo_accuracy1 = (encoder_angle - joystick_angle) / 10;
 
     //Movement using encoder detection
         if (encoder_angle < joystick_angle) {
+            FR-SwerveServo.setPower(servo_accuracy1);
+            FL-SwerveServo.setPower(servo_accuracy1);
+            BR-SwerveServo.setPower(servo_accuracy1);
+            BL-SwerveServo.setPower(servo_accuracy1);
+        } 
+else if (encoder_angle > joystick_angle) {
+            FR-SwerveServo.setPower(-servo_accuracy1);
+            FL-SwerveServo.setPower(-servo_accuracy1);
+            BR-SwerveServo.setPower(-servo_accuracy1);
+            BL-SwerveServo.setPower(-servo_accuracy1);
+        } 
+else if (encoder_angle < 0) {
             FR-SwerveServo.setPower(0.7);
             FL-SwerveServo.setPower(0.7);
             BR-SwerveServo.setPower(0.7);
             BL-SwerveServo.setPower(0.7);
-        } else if (encoder_angle > joystick_angle) {
+        } 
+else if (encoder_angle > 0) {
             FR-SwerveServo.setPower(-0.7);
             FL-SwerveServo.setPower(-0.7);
             BR-SwerveServo.setPower(-0.7);
             BL-SwerveServo.setPower(-0.7);
-        } else if (encoder_angle < 0) {
-            FR-SwerveServo.setPower(0.7);
-            FL-SwerveServo.setPower(0.7);
-            BR-SwerveServo.setPower(0.7);
-            BL-SwerveServo.setPower(0.7);
-        } else if (encoder_angle > 0) {
-            FR-SwerveServo.setPower(-0.7);
-            FL-SwerveServo.setPower(-0.7);
-            BR-SwerveServo.setPower(-0.7);
-            BL-SwerveServo.setPower(-0.7);
-        } else {
-            servo.setPower(0);
         }
 
     }
