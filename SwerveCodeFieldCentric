@@ -1,1 +1,70 @@
+/* test code
 
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@TeleOp
+public class SwerveCode extends LinearOpMode{
+   
+//labeling the actuators and sensors
+    public encoder Encoder;
+    public DcMotor FR-SwerveMotor;
+    public DcMotor FL-SwerveMotor;
+    public DcMotor BR-SwerveMotor;
+    public DcMotor BL-SwerveMotor;
+    public servo FR-SwerveServo;
+    public servo FL-SwerveServo;
+    public servo BR-SwerveServo.setPower();
+    public servo BL-SwerveServo.setPower();
+  
+waitForStart();
+    FR-SwerveMotor.setPower(gamepad1.left_stick_y);
+            FL-SwerveMotor.setPower(gamepad1.left_stick_y);
+        BR-SwerveMotor(gamepad1.left_stick_y);
+               BL-SwerveMotor(gamepad1.left_stick_y);
+               
+while(opModeIsActive()){
+        double encoder_angle = Encoder.getPulse / 2.844444444444;
+        double jy = gamepad1.left_stick_y;
+        double jx = gamepad1.left_stick_x;
+        //This is what I used when using tangent
+//I did use an if statement to stop the divided by zero error.
+       
+   int joystick_angle = radiansToDegrees(atan(jy / jx));
+        telemetry.addData(joystick_angle);
+
+// Servo accuracy helps the servo slow down when approaching its desired position.
+       double servo_accuracy1 = (encoder_angle - joystick_angle) / 30;
+       double servo_accuracy2 = encoderangle / 30;
+
+    //Movement using encoder detection
+        if (encoder_angle < joystick_angle) {
+            FR-SwerveServo.setPower(servo_accuracy1);
+            FL-SwerveServo.setPower(servo_accuracy1);
+            BR-SwerveServo.setPower(servo_accuracy1);
+            BL-SwerveServo.setPower(servo_accuracy1);
+        } 
+else if (encoder_angle > joystick_angle) {
+            FR-SwerveServo.setPower(-servo_accuracy1);
+            FL-SwerveServo.setPower(-servo_accuracy1);
+            BR-SwerveServo.setPower(-servo_accuracy1);
+            BL-SwerveServo.setPower(-servo_accuracy1);
+        } 
+else if (encoder_angle < 0) {
+            FR-SwerveServo.setPower(servo_accuracy2);
+            FL-SwerveServo.setPower(servo_accuracy2);
+            BR-SwerveServo.setPower(servo_accuracy2);
+            BL-SwerveServo.setPower(servo_accuracy2);
+        } 
+else if (encoder_angle > 0) {
+            FR-SwerveServo.setPower(-servo_accuracy2);
+            FL-SwerveServo.setPower(-servo_accuracy2);
+            BR-SwerveServo.setPower(-servo_accuracy2);
+            BL-SwerveServo.setPower(-servo_accuracy2);
+        }
+
+    }
+}
